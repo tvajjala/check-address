@@ -1,0 +1,17 @@
+<xml-bindings xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/oxm"
+              package-name="com.tvajjala.address.soap.model.request" xml-accessor-order="ALPHABETICAL">
+
+    <xml-schema element-form-default="QUALIFIED">
+        <xml-ns prefix="ws" namespace-uri="http://ws.cdyne.com"/>
+    </xml-schema>
+
+    <java-types>
+        <java-type name="CityStateReq">
+            <xml-root-element name="ws:ReturnCityState"/>
+            <java-attributes>
+                <xml-element java-attribute="zipCode" xml-path="ws:zipcode/text()"/>
+            </java-attributes>
+        </java-type>
+    </java-types>
+
+</xml-bindings>

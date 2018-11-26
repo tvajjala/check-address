@@ -1,0 +1,53 @@
+buildscript {
+    ext {
+        springBootVersion = '2.1.0.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group = 'com.tvajjala'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+/**
+ * Dependencies appearing in the api configurations will be transitively exposed to consumers of the library, and as such will appear on the compile classpath of consumers.
+ *
+ * Dependencies found in the implementation configuration will, on the other hand, not be exposed to consumers, and therefore not leak into the consumers' compile classpath. This comes with several benefits:
+ *
+ * dependencies do not leak into the compile classpath of consumers anymore, so you will never accidentally depend on a transitive dependency
+ * faster compilation thanks to reduced classpath size less recompilations when implementation dependencies change: consumers would not need to be recompiled
+ * cleaner publishing: when used in conjunction with the new maven-publish plugin, Java libraries produce POM files that distinguish exactly between what is required to compile against the library and what is required to use the library at runtime (in other words, don't mix what is needed to compile the library itself and what is needed to compile against the library).
+
+ * The compile configuration still exists, but should not be used as it will not offer the guarantees that the api and implementation configurations provide
+ */
+
+dependencies {
+
+    // used for axiomSoapMessageFactory to improve performance
+    implementation('org.apache.ws.commons.axiom:axiom-api:1.2.21')
+    // https://mvnrepository.com/artifact/org.apache.ws.commons.axiom/axiom-impl
+    implementation('org.apache.ws.commons.axiom:axiom-impl:1.2.21')
+
+    // https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
+    implementation('org.apache.httpcomponents:httpclient:4.5.6')
+
+    // https://mvnrepository.com/artifact/org.eclipse.persistence/org.eclipse.persistence.moxy
+    implementation('org.eclipse.persistence:org.eclipse.persistence.moxy:2.7.3')
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    implementation('org.springframework.boot:spring-boot-starter-web-services')
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+}

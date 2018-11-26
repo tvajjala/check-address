@@ -1,0 +1,19 @@
+logging:
+  level:
+    # Enabling trace for app specific logging.
+    org.springframework: INFO
+    org.springframework.ws.soap: TRACE
+    org.springframework.web: WARN
+    org.springframework.boot: WARN
+    org.eclipse: TRACE
+    org.springframework.ws.client.MessageTracing.sent: TRACE
+    org.springframework.ws.client.MessageTracing.received: DEBUG
+    org.springframework.ws.server.MessageTracing: DEBUG
+
+wiremock:
+  port: 8080
+
+spring:
+  output:
+    ansi:
+      enabled: always
