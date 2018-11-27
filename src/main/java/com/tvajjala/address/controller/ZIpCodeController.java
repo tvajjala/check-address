@@ -8,22 +8,24 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * This is just pilot implementation for moxy soapClient.
  *
  * @author ThirupathiReddy
  */
 @RestController
-@RequestMapping("/city-state")
-public class CityStateController {
+@RequestMapping("/zip")
+public class ZIpCodeController {
 
 
     @Autowired
-    CityStateService cityStateService;
+    private CityStateService cityStateService;
 
 
     @RequestMapping("/{zip-code}")
-    public ResponseEntity<CityStateRes> findCityByZipCode(@PathVariable(name = "zip-code") Integer zipCode) {
+    public ResponseEntity<List<CityStateRes>> findCityByZipCode(@PathVariable(name = "zip-code") Integer zipCode) {
         return ResponseEntity.ok(cityStateService.findCityName(zipCode));
     }
 }

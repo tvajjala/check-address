@@ -1,0 +1,12 @@
+= Spring Boot SOAP Client
+
+This simple SOAP client will demonstrates the following items
+
+. Invoking SOAP web service using webServiceTemplate
+. Understanding the different messageFactories  (`Axiom` and SAAJ)
+. Different message senders for different protocols ( `HTTP`, JMS etc)
+. Integrating `Moxy` Marshaller framework( Java to XML conversion)
+. Usage of RxJava for parallel calls
+
+
+

@@ -1,0 +1,50 @@
+
+== WebFlux
+
+Spring WebFlux framework is part of Spring 5 and provides reactive programming support for web applications
+
+Spring WebFlux internally uses https://projectreactor.io/[Project Reactor] and its publisher implementations – Flux and Mono.
+
+
+The new framework supports two programming models:
+
+. Annotation-based reactive components
+. Functional routing and handling
+
+
+WebFlux is built using Reactor, which introduces completely new ideas to Spring Boot parallelism.
+
+Below are a few concepts that we will look at closer in order to understand how to make the most of our reactive services.
+
+. Backpressure,
+. Schedulers,
+. Parallel Flux
+
+=== Backpressure
+
+Back-pressure is a way of dealing with a data stream that may be too large at times to be reliably processed.
+The goal is to feed the data to subscribers at the rate at which they can reliably deal with that data.
+The unprocessed data can be buffered (or we could choose different strategy), hence the `pressure` analogy used.
+
+*Limit the number of items being*
+
+One of the main ways of dealing with back-pressure is implementing a custom `BaseSubscriber` that deals with requesting data as necessary.
+
+=== parallelism
+
+What happens when you request more data to be processed? Can you have more data processed asynchronously? Even if you attempt to get more data being processed in parallel by calling request() from your custom BaseSubscriber it won’t work unless you are using a ParallelFlux.
+
+[source,java]
+.parallel.java
+----
+Flux.range(1, 1000)
+        .parallel(8)
+        .runOn(Schedulers.parallel())
+        .subscribe(i -> System.out.println(i));
+----
+
+
+
+NOTE: To obtain a ParallelFlux, you can use the parallel() operator on any Flux. By itself, this method does not parallelize the work. Rather, it divides the workload into “rails” (by default, as many rails as there are CPU cores)
+
+
