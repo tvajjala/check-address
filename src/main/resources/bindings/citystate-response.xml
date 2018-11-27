@@ -1,0 +1,17 @@
+<xml-bindings xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/oxm"
+              package-name="com.tvajjala.address.soap.model.response" xml-accessor-order="ALPHABETICAL">
+    <xml-schema element-form-default="QUALIFIED">
+        <xml-ns prefix="ws" namespace-uri="http://ws.cdyne.com/"/>
+    </xml-schema>
+    <java-types>
+        <java-type name="CityStateRes">
+            <xml-root-element name="ws:ReturnCityStateResponse"/>
+            <java-attributes>
+                <xml-element java-attribute="county" xml-path="ws:ReturnCityStateResult/ws:County/text()"/>
+                <xml-element java-attribute="state" xml-path="ws:ReturnCityStateResult/ws:StateAbbrev/text()"/>
+                <xml-element java-attribute="city" xml-path="ws:ReturnCityStateResult/ws:City/text()"/>
+                <xml-element java-attribute="zipCode" xml-path="ws:ReturnCityStateResult/ws:ZipCode/text()"/>
+            </java-attributes>
+        </java-type>
+    </java-types>
+</xml-bindings>

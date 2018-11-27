@@ -1,6 +1,6 @@
 package com.tvajjala.address;
 
-import com.tvajjala.address.service.CityFinderService;
+import com.tvajjala.address.service.CityStateService;
 import com.tvajjala.address.soap.model.response.CityStateRes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -18,14 +18,11 @@ public class Application implements CommandLineRunner {
         SpringApplication.run(Application.class, args);
     }
 
-    @Autowired
-    CityFinderService cityFinderService;
 
     @Override
     public void run(String... args) {
 
-        CityStateRes cityStateRes = cityFinderService.findCityName(15220);
 
-        System.out.println(cityStateRes);
     }
 }
+

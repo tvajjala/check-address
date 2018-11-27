@@ -1,12 +1,13 @@
 package com.tvajjala.address.config;
 
+import org.apache.http.HttpRequestInterceptor;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.protocol.HTTP;
 import org.eclipse.persistence.jaxb.JAXBContextProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
@@ -18,9 +19,10 @@ import org.springframework.ws.soap.client.core.SoapFaultMessageResolver;
 import org.springframework.ws.soap.saaj.SaajSoapMessageFactory;
 import org.springframework.ws.transport.http.HttpComponentsMessageSender;
 
+import javax.xml.soap.MessageFactory;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -50,15 +52,15 @@ public class SoapTemplateConfig {
      * @return WebServiceTemplate {@link WebServiceTemplate}
      */
     @Bean
-    public WebServiceTemplate webServiceTemplate() throws IOException {
+    public WebServiceTemplate webServiceTemplate() throws Exception {
 
-        WebServiceTemplate webServiceTemplate = new WebServiceTemplate();
+        WebServiceTemplate webServiceTemplate = new WebServiceTemplate(axiomSoapMessageFactory());
 
         // message resolver
         webServiceTemplate.setFaultMessageResolver(new SoapFaultMessageResolver());
 
         // messageFactory
-        webServiceTemplate.setMessageFactory(axiomSoapMessageFactory());
+        //  webServiceTemplate.setMessageFactory(axiomSoapMessageFactory());
 
         // message sender
         webServiceTemplate.setMessageSender(httpComponentsMessageSender());
@@ -66,7 +68,6 @@ public class SoapTemplateConfig {
 
         webServiceTemplate.setMarshaller(jaxb2Marshaller());
         webServiceTemplate.setUnmarshaller(jaxb2Marshaller());
-
         webServiceTemplate.afterPropertiesSet();
         return webServiceTemplate;
     }
@@ -81,8 +82,15 @@ public class SoapTemplateConfig {
     HttpClient httpClient() {
         return HttpClients.custom()
                 .setDefaultRequestConfig(RequestConfig.DEFAULT)
+                .addInterceptorFirst(httpRequestInterceptor())
                 .build();
     }
+
+
+    public HttpRequestInterceptor httpRequestInterceptor() {
+        return (request, context) -> request.removeHeaders(HTTP.CONTENT_LEN);
+    }
+
 
     /**
      * Transportation: HTTP (Other alternative Transportation like JMS, EMAIL, XMPP)
@@ -125,10 +133,10 @@ public class SoapTemplateConfig {
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
 
         Resource[] resources = resolver.getResources("bindings/**");
-        Map<String, Object> properties = new HashMap<>();
 
-        properties.put(JAXBContextProperties.OXM_METADATA_SOURCE, Arrays.stream(resources).map(resource -> "bindings/"
+        Map<String, Object> properties = Collections.singletonMap(JAXBContextProperties.OXM_METADATA_SOURCE, Arrays.stream(resources).map(resource -> "bindings/"
                 + resource.getFilename()).collect(Collectors.toList()));
+
 
         LOGGER.info("JaxbContextProperties {} ", properties);
 
@@ -155,7 +163,7 @@ public class SoapTemplateConfig {
      * @return AxiomSoapMessageFactory {@link AxiomSoapMessageFactory}
      */
     @Bean
-    AxiomSoapMessageFactory axiomSoapMessageFactory() {
+    AxiomSoapMessageFactory axiomSoapMessageFactory() throws Exception {
         AxiomSoapMessageFactory axiomSoapMessageFactory = new AxiomSoapMessageFactory();
 
         /*
@@ -165,6 +173,7 @@ public class SoapTemplateConfig {
          * that any pre-processing (logging etc.) of the message does not consume it.
          */
         axiomSoapMessageFactory.setPayloadCaching(false);
+        //axiomSoapMessageFactory.afterPropertiesSet();
 
         return axiomSoapMessageFactory;
     }
@@ -180,9 +189,11 @@ public class SoapTemplateConfig {
      * @return SaajSoapMessageFactory {@link SaajSoapMessageFactory}
      */
     @Bean
-    @ConditionalOnProperty("saaj")
-    SaajSoapMessageFactory saajSoapMessageFactory() {
-        return new SaajSoapMessageFactory();
+    SaajSoapMessageFactory saajSoapMessageFactory() throws Exception {
+        SaajSoapMessageFactory messageFactory = new SaajSoapMessageFactory(
+                MessageFactory.newInstance());
+        // messageFactory.afterPropertiesSet();
+        return messageFactory;
     }
 
 
