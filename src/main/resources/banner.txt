@@ -1,18 +1,18 @@
 ${AnsiColor.CYAN}
 
-
- .oooooo..o                      o8o                                 oooooo   oooooo     oooo  .oooooo..o
-d8P'    `Y8                      `"'                                  `888.    `888.     .8'  d8P'    `Y8
-Y88bo.      oo.ooooo.  oooo d8b oooo  ooo. .oo.    .oooooooo           `888.   .8888.   .8'   Y88bo.
- `"Y8888o.   888' `88b `888""8P `888  `888P"Y88b  888' `88b             `888  .8'`888. .8'     `"Y8888o.
-     `"Y88b  888   888  888      888   888   888  888   888  8888888     `888.8'  `888.8'          `"Y88b
-oo     .d8P  888   888  888      888   888   888  `88bod8P'               `888'    `888'      oo     .d8P
-8""88888P'   888bod8P' d888b    o888o o888o o888o `8oooooo.                `8'      `8'       8""88888P'
-             888                                  d"     YD
-            o888o                                 "Y88888P'
+  __,                          __    ___,
+ (              o             ( /   /(
+  `.   ,_   _  ,  _ _   _,     / / /  `.
+(___)_/|_)_/ (_(_/ / /_(_)_---(_/_/ (___)
+      /|                /|
+     (/                (/
 
 ${AnsiColor.BRIGHT_GREEN}
-SOAP Client Using Moxy Marshaller
+
++-+-+-+-+ +-+-+-+-+-+-+ +-+-+-+-+-+ +-+-+-+-+ +-+-+-+-+-+-+-+-+-+-+ +-+-+-+ +-+-+-+-+-+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|S|O|A|P| |C|l|i|e|n|t| |U|s|i|n|g| |M|o|x|y| |M|a|r|s|h|a|l|l|e|r| |a|n|d| |A|x|i|o|m| |m|e|s|s|a|g|e|F|a|c|t|o|r|y|
++-+-+-+-+ +-+-+-+-+-+-+ +-+-+-+-+-+ +-+-+-+-+ +-+-+-+-+-+-+-+-+-+-+ +-+-+-+ +-+-+-+-+-+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
 ${AnsiStyle.NORMAL}
 Running Spring Boot ${spring-boot.formatted-version}
 ${AnsiStyle.NORMAL}
