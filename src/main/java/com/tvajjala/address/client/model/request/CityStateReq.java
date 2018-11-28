@@ -1,4 +1,4 @@
-package com.tvajjala.address.soap.model.request;
+package com.tvajjala.address.client.model.request;
 
 public class CityStateReq {
 
@@ -21,7 +21,7 @@ public class CityStateReq {
     public CityStateReq(Integer zipCode) {
 
         this.zipCode = zipCode;
-        this.licenseKey="?";
+        this.licenseKey = "?";
     }
 
     public Integer getZipCode() {

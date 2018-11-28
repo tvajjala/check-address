@@ -1,4 +1,4 @@
-package com.tvajjala.address.soap.model.response;
+package com.tvajjala.address.client.model.response;
 
 public class CityStateRes {
 

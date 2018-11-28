@@ -1,0 +1,15 @@
+<xml-bindings xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/oxm"
+              package-name="com.tvajjala.address.client.model.response" xml-accessor-order="ALPHABETICAL">
+    <xml-schema element-form-default="QUALIFIED">
+        <xml-ns prefix="ws" namespace-uri="http://ws.cdyne.com/"/>
+    </xml-schema>
+    <java-types>
+        <java-type name="AlternateCities">
+            <xml-root-element name="ws:AlternateCitiesResponse"/>
+            <java-attributes>
+                <xml-element java-attribute="list" container-type="java.util.ArrayList"
+                             xml-path="ws:AlternateCitiesResult/ws:anyType/text()"/>
+            </java-attributes>
+        </java-type>
+    </java-types>
+</xml-bindings>

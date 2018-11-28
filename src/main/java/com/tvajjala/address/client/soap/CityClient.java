@@ -1,7 +1,7 @@
-package com.tvajjala.address.soap.client;
+package com.tvajjala.address.client.soap;
 
-import com.tvajjala.address.soap.model.request.CityStateReq;
-import com.tvajjala.address.soap.model.response.CityStateRes;
+import com.tvajjala.address.client.model.request.CityStateReq;
+import com.tvajjala.address.client.model.response.CityStateRes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,21 +13,21 @@ import rx.Single;
 import rx.schedulers.Schedulers;
 
 @Component
-public class CityStateClient {
+public class CityClient {
 
 
-    static final Logger LOGGER = LoggerFactory.getLogger(CityStateClient.class);
+    static final Logger LOGGER = LoggerFactory.getLogger(CityClient.class);
 
     static final String URI = "http://ws.cdyne.com/psaddress/addresslookup.asmx";
 
     static final String SOAP_ACTION = "http://ws.cdyne.com/ReturnCityState";
 
     @Autowired
-    WebServiceTemplate webServiceTemplate;
+    WebServiceTemplate cityStateTemplate;
 
     public Single<CityStateRes> findCityNameAsync(Integer zipCode) {
 
-        return Single.just((CityStateRes) webServiceTemplate.marshalSendAndReceive(URI, new CityStateReq(zipCode),
+        return Single.just((CityStateRes) cityStateTemplate.marshalSendAndReceive(URI, new CityStateReq(zipCode),
                 message -> {
                     LOGGER.info("message {} ", message);
                     SoapMessage soapMessage = (SoapMessage) message;

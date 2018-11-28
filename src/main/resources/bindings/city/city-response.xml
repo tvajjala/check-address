@@ -1,5 +1,5 @@
 <xml-bindings xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/oxm"
-              package-name="com.tvajjala.address.soap.model.response" xml-accessor-order="ALPHABETICAL">
+              package-name="com.tvajjala.address.client.model.response" xml-accessor-order="ALPHABETICAL">
     <xml-schema element-form-default="QUALIFIED">
         <xml-ns prefix="ws" namespace-uri="http://ws.cdyne.com/"/>
     </xml-schema>

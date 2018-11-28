@@ -19,12 +19,13 @@ import org.springframework.ws.soap.client.core.SoapFaultMessageResolver;
 import org.springframework.ws.soap.saaj.SaajSoapMessageFactory;
 import org.springframework.ws.transport.http.HttpComponentsMessageSender;
 
-import javax.xml.soap.MessageFactory;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import static javax.xml.soap.MessageFactory.newInstance;
 
 /**
  * This configuration will lets you prepare required beans to invoke soap -ws
@@ -43,32 +44,37 @@ public class SoapTemplateConfig {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SoapTemplateConfig.class);
 
+
+    @Bean
+    public WebServiceTemplate cityStateTemplate() throws Exception {
+
+        return webServiceTemplate("city");
+    }
+
+    @Bean
+    public WebServiceTemplate alternateCityTemplate() throws Exception {
+
+        return webServiceTemplate("alternate");
+    }
+
+
     /**
-     * The WebServiceTemplate is the core class for client-side Web service access in Spring-WS. It contains methods
+     * The WebServiceTemplate is the core class for soap-side Web service access in Spring-WS. It contains methods
      * for sending Source objects, and receiving response messages as either Source or Result. Additionally, it can
      * marshal objects to XML before sending them across a transport, and un-marshal any response XML into an object
      * again.
      *
      * @return WebServiceTemplate {@link WebServiceTemplate}
      */
-    @Bean
-    public WebServiceTemplate webServiceTemplate() throws Exception {
-
+    public WebServiceTemplate webServiceTemplate(String bindingPath) throws Exception {
         WebServiceTemplate webServiceTemplate = new WebServiceTemplate(axiomSoapMessageFactory());
-
         // message resolver
         webServiceTemplate.setFaultMessageResolver(new SoapFaultMessageResolver());
-
-        // messageFactory
-        //  webServiceTemplate.setMessageFactory(axiomSoapMessageFactory());
-
         // message sender
         webServiceTemplate.setMessageSender(httpComponentsMessageSender());
-
-
-        webServiceTemplate.setMarshaller(jaxb2Marshaller());
-        webServiceTemplate.setUnmarshaller(jaxb2Marshaller());
-        webServiceTemplate.afterPropertiesSet();
+        webServiceTemplate.setMarshaller(jaxb2Marshaller(bindingPath));
+        webServiceTemplate.setUnmarshaller(jaxb2Marshaller(bindingPath));
+        //webServiceTemplate.afterPropertiesSet();
         return webServiceTemplate;
     }
 
@@ -125,27 +131,19 @@ public class SoapTemplateConfig {
      *
      * @return Jaxb2Marshaller {@link Jaxb2Marshaller}
      */
-    @Bean
-    public Jaxb2Marshaller jaxb2Marshaller() throws IOException {
+    public Jaxb2Marshaller jaxb2Marshaller(String path) throws IOException {
         Jaxb2Marshaller jaxb2Marshaller = new Jaxb2Marshaller();
-
-
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+        Resource[] resources = resolver.getResources("bindings/" + path + "/**");
 
-        Resource[] resources = resolver.getResources("bindings/**");
-
-        Map<String, Object> properties = Collections.singletonMap(JAXBContextProperties.OXM_METADATA_SOURCE, Arrays.stream(resources).map(resource -> "bindings/"
-                + resource.getFilename()).collect(Collectors.toList()));
-
+        Map<String, Object> properties = Collections.singletonMap(JAXBContextProperties.OXM_METADATA_SOURCE, Arrays.stream(resources).map(resource -> "bindings/" + path
+                + "/" + resource.getFilename()).collect(Collectors.toList()));
 
         LOGGER.info("JaxbContextProperties {} ", properties);
-
         jaxb2Marshaller.setJaxbContextProperties(properties);
-
-        //used to specify java classes to bound. since we are using moxy we need to provide
+        //used to specify java classes to bound. since we are using Moxy we need to provide
         //jaxb.properties file folder - javax.xml.bind.context.factory=org.eclipse.persistence.jaxb.JAXBContextFactory
         jaxb2Marshaller.setContextPath("jaxb");//jaxb.context.path
-
         return jaxb2Marshaller;
     }
 
@@ -163,7 +161,7 @@ public class SoapTemplateConfig {
      * @return AxiomSoapMessageFactory {@link AxiomSoapMessageFactory}
      */
     @Bean
-    AxiomSoapMessageFactory axiomSoapMessageFactory() throws Exception {
+    AxiomSoapMessageFactory axiomSoapMessageFactory() {
         AxiomSoapMessageFactory axiomSoapMessageFactory = new AxiomSoapMessageFactory();
 
         /*
@@ -190,8 +188,7 @@ public class SoapTemplateConfig {
      */
     @Bean
     SaajSoapMessageFactory saajSoapMessageFactory() throws Exception {
-        SaajSoapMessageFactory messageFactory = new SaajSoapMessageFactory(
-                MessageFactory.newInstance());
+        SaajSoapMessageFactory messageFactory = new SaajSoapMessageFactory(newInstance());
         // messageFactory.afterPropertiesSet();
         return messageFactory;
     }
