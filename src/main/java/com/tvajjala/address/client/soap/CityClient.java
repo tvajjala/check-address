@@ -10,7 +10,6 @@ import org.springframework.ws.client.core.WebServiceTemplate;
 import org.springframework.ws.soap.SoapHeader;
 import org.springframework.ws.soap.SoapMessage;
 import rx.Single;
-import rx.schedulers.Schedulers;
 
 @Component
 public class CityClient {
@@ -27,15 +26,21 @@ public class CityClient {
 
     public Single<CityStateRes> findCityNameAsync(Integer zipCode) {
 
-        return Single.just((CityStateRes) cityStateTemplate.marshalSendAndReceive(URI, new CityStateReq(zipCode),
-                message -> {
-                    LOGGER.info("message {} ", message);
-                    SoapMessage soapMessage = (SoapMessage) message;
-                    SoapHeader soapHeader = soapMessage.getSoapHeader();
-                    soapHeader.examineAllHeaderElements().forEachRemaining(e -> LOGGER.error(e.getText()));
-                    soapMessage.setSoapAction(SOAP_ACTION);
-                    LOGGER.info("soapAction  {} ", soapMessage.getSoapAction());
-                })).subscribeOn(Schedulers.io());
+        return Single.create(singleSubscriber -> {
+
+            CityStateRes cityStateRes = (CityStateRes) cityStateTemplate.marshalSendAndReceive(URI, new CityStateReq(zipCode),
+                    message -> {
+                        LOGGER.info("message {} ", message);
+                        SoapMessage soapMessage = (SoapMessage) message;
+                        SoapHeader soapHeader = soapMessage.getSoapHeader();
+                        soapHeader.examineAllHeaderElements().forEachRemaining(e -> LOGGER.error(e.getText()));
+                        soapMessage.setSoapAction(SOAP_ACTION);
+                        LOGGER.info("soapAction  {} ", soapMessage.getSoapAction());
+                    });
+
+            singleSubscriber.onSuccess(cityStateRes);
+        });
+
     }
 
 }

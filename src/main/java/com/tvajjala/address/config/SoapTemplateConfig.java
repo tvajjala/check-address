@@ -76,6 +76,7 @@ public class SoapTemplateConfig {
         webServiceTemplate.setUnmarshaller(jaxb2Marshaller(bindingPath));
         //webServiceTemplate.afterPropertiesSet();
         return webServiceTemplate;
+
     }
 
 

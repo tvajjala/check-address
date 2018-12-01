@@ -10,6 +10,11 @@ import org.springframework.stereotype.Service;
 import rx.Single;
 import rx.schedulers.Schedulers;
 
+/**
+ * This service will make two parallel calls to two different soap services and aggregate result back.
+ *
+ * @author ThirupathiReddy Vajjala
+ */
 @Service
 public class CityFinderService {
 
@@ -21,8 +26,8 @@ public class CityFinderService {
 
     public CityFinder findCityName(Integer zipCode) {
 
-        Single<CityStateRes> csRes = cityClient.findCityNameAsync(zipCode);
-        Single<AlternateCities> csRes2 = alternateCitiesClient.findCityNameAsync(zipCode);
+        Single<CityStateRes> csRes = cityClient.findCityNameAsync(zipCode).subscribeOn(Schedulers.io());
+        Single<AlternateCities> csRes2 = alternateCitiesClient.findAlternateCitiesAsync(zipCode).subscribeOn(Schedulers.io());
 
         return Single.zip(csRes, csRes2, (res, res2) ->
                 {
