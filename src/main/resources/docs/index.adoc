@@ -1,4 +1,3 @@
-== Spring-boot SOAP client
 
 This tutorial walks you through the process of consuming a `SOAP-based web service` with Spring.
 
@@ -14,11 +13,11 @@ From the above WSDL we will use following simple service calls
 
 Spring provides a mechanism to invoke soap based services using `WebServiceTemplate`
 
-We need to Customise this component to improve performance, refer
+We need to customise this component to improve performance, refer
         https://github.com/tvajjala/check-address/blob/master/src/main/java/com/tvajjala/address/config/SoapTemplateConfig.java[SoapTemplateConfig] for full configuration.
 
 
-It required following components
+It requires following components
 
 . Message Sender
 . Message Factory
@@ -146,12 +145,19 @@ This means that you have to make sure that any pre-processing (logging etc.) of 
 
 === Sending and receiving POJOs - marshalling and un-marshalling
 
-In order to facilitate the sending of plain Java objects, the WebServiceTemplate has a number of send(..) methods that take an Object as an argument for a message's data content. The method marshalSendAndReceive(..) in the WebServiceTemplate class delegates the conversion of the request object to XML to a Marshaller, and the conversion of the response XML to an object to an Unmarshaller.
+In order to facilitate the sending of plain Java objects, the *WebServiceTemplate* has a number of `send(..)` methods
+
+that take an Object as an argument for a message's data content.
+
+The method `marshalSendAndReceive(..)` in the WebServiceTemplate class delegates the conversion of the request object to XML to a `Marshaller`,
+
+and the conversion of the response XML to an object to an `Unmarshaller`.
+
 
 To externalize the conversion logic we use `Eclipselink Moxy` Framework.
 
 
-*Eclipselink Moxy*
+=== Eclipselink Moxy
 
 Refer https://wiki.eclipse.org/EclipseLink/Examples document for more information.
 
@@ -202,4 +208,16 @@ refer https://github.com/tvajjala/check-address.git[Github repository] for compl
 
 
 
+=== Reference
 
+. https://docs.spring.io/spring-ws/site/reference/html/client.html
+
+. https://docs.spring.io/spring-ws/site/reference/html/common.html
+
+. http://ws.cdyne.com/psaddress/addresslookup.asmx?wsdl
+
+. https://www.eclipse.org/eclipselink/#moxy
+
+. https://wiki.eclipse.org/EclipseLink/Examples/MOXy
+
+. https://github.com/ReactiveX/RxJava

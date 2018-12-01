@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.3">
-<title>Spring-boot SOAP client</title>
+<title>Message Sender (HTTP Transport)</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -512,9 +512,6 @@ table.CodeRay td.code>pre{padding:0}
 <div id="header">
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="spring-boot-soap-client">Spring-boot SOAP client</h2>
-<div class="sectionbody">
 <div class="paragraph">
 <p>This tutorial walks you through the process of consuming a <code>SOAP-based web service</code> with Spring.</p>
 </div>
@@ -541,11 +538,11 @@ table.CodeRay td.code>pre{padding:0}
 <p>Spring provides a mechanism to invoke soap based services using <code>WebServiceTemplate</code></p>
 </div>
 <div class="paragraph">
-<p>We need to Customise this component to improve performance, refer
+<p>We need to customise this component to improve performance, refer
         <a href="https://github.com/tvajjala/check-address/blob/master/src/main/java/com/tvajjala/address/config/SoapTemplateConfig.java">SoapTemplateConfig</a> for full configuration.</p>
 </div>
 <div class="paragraph">
-<p>It required following components</p>
+<p>It requires following components</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -693,14 +690,23 @@ This means that you have to make sure that any pre-processing (logging etc.) of 
 <div class="sect2">
 <h3 id="sending-and-receiving-pojos-marshalling-and-un-marshalling">Sending and receiving POJOs - marshalling and un-marshalling</h3>
 <div class="paragraph">
-<p>In order to facilitate the sending of plain Java objects, the WebServiceTemplate has a number of send(..) methods that take an Object as an argument for a message&#8217;s data content. The method marshalSendAndReceive(..) in the WebServiceTemplate class delegates the conversion of the request object to XML to a Marshaller, and the conversion of the response XML to an object to an Unmarshaller.</p>
+<p>In order to facilitate the sending of plain Java objects, the <strong>WebServiceTemplate</strong> has a number of <code>send(..)</code> methods</p>
+</div>
+<div class="paragraph">
+<p>that take an Object as an argument for a message&#8217;s data content.</p>
+</div>
+<div class="paragraph">
+<p>The method <code>marshalSendAndReceive(..)</code> in the WebServiceTemplate class delegates the conversion of the request object to XML to a <code>Marshaller</code>,</p>
+</div>
+<div class="paragraph">
+<p>and the conversion of the response XML to an object to an <code>Unmarshaller</code>.</p>
 </div>
 <div class="paragraph">
 <p>To externalize the conversion logic we use <code>Eclipselink Moxy</code> Framework.</p>
 </div>
-<div class="paragraph">
-<p><strong>Eclipselink Moxy</strong></p>
 </div>
+<div class="sect2">
+<h3 id="eclipselink-moxy">Eclipselink Moxy</h3>
 <div class="paragraph">
 <p>Refer <a href="https://wiki.eclipse.org/EclipseLink/Examples" class="bare">https://wiki.eclipse.org/EclipseLink/Examples</a> document for more information.</p>
 </div>
@@ -763,12 +769,35 @@ This means that you have to make sure that any pre-processing (logging etc.) of 
 </ol>
 </div>
 </div>
+<div class="sect2">
+<h3 id="reference">Reference</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="https://docs.spring.io/spring-ws/site/reference/html/client.html" class="bare">https://docs.spring.io/spring-ws/site/reference/html/client.html</a></p>
+</li>
+<li>
+<p><a href="https://docs.spring.io/spring-ws/site/reference/html/common.html" class="bare">https://docs.spring.io/spring-ws/site/reference/html/common.html</a></p>
+</li>
+<li>
+<p><a href="http://ws.cdyne.com/psaddress/addresslookup.asmx?wsdl" class="bare">http://ws.cdyne.com/psaddress/addresslookup.asmx?wsdl</a></p>
+</li>
+<li>
+<p><a href="https://www.eclipse.org/eclipselink/#moxy" class="bare">https://www.eclipse.org/eclipselink/#moxy</a></p>
+</li>
+<li>
+<p><a href="https://wiki.eclipse.org/EclipseLink/Examples/MOXy" class="bare">https://wiki.eclipse.org/EclipseLink/Examples/MOXy</a></p>
+</li>
+<li>
+<p><a href="https://github.com/ReactiveX/RxJava" class="bare">https://github.com/ReactiveX/RxJava</a></p>
+</li>
+</ol>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-12-01 10:43:06 -05:00
+Last updated 2018-12-01 10:58:26 -05:00
 </div>
 </div>
 </body>
