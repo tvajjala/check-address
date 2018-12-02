@@ -1,9 +1,22 @@
 
+
 This tutorial walks you through the process of consuming a `SOAP-based web service` with Spring.
+
+*It elucidates following items*
+
+* Making parallel calls with http://reactivex.io/[RxJava] (or https://docs.spring.io/spring/docs/current/spring-framework-reference/web-reactive.html[WebFlux])
+* Sending large SOAP message payloads using AXIOM( AXis Object Model) https://docs.spring.io/spring-ws/docs/current/api/org/springframework/ws/soap/axiom/AxiomSoapMessageFactory.html[AxiomSoapMessageFactory].(which improves performance)
+* Marshalling( is the process of transforming the memory representation of an object to a data format suitable for storage or transmission) simplified with https://www.eclipse.org/eclipselink/documentation/2.4/moxy/toc.htm[Eclipselink Moxy]
+
+
+image:https://www.eclipse.org/eclipselink/documentation/2.4/moxy/img/jaxb_overview.png[Play, title="Play", width=450 height=150 align=middle]
+
+
+
 
 We will build a SOAP client that fetches city information based on `zipCode`.
 
-Complete WSDL you can found  http://ws.cdyne.com/psaddress/addresslookup.asmx?wsdl[here]
+Complete WSDL you can found  http://ws.cdyne.com/psaddress/addresslookup.asmx?wsdl
 
 From the above WSDL we will use following simple service calls
 
@@ -19,9 +32,9 @@ We need to customise this component to improve performance, refer
 
 It requires following components
 
-. Message Sender
-. Message Factory
-. Marshaller
+. *Message Sender* - which is responsible for sending the XML message across a transport layer(HTTP/JMS/Email)
+. *Message Factory* - A factory for creating SOAPMessage objects
+. *Marshaller* - is the process of transforming the memory representation of an object to a data format suitable for storage or transmission
 
 
 === Message Sender (HTTP Transport)
@@ -51,7 +64,9 @@ Use the latter if you need more advanced and easy-to-use functionality (such as 
                 .build();
     }
 
-
+    /**
+     * Remove duplicate header
+     */
     public HttpRequestInterceptor httpRequestInterceptor() {
         return (request, context) -> request.removeHeaders(HTTP.CONTENT_LEN);
     }

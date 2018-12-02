@@ -516,10 +516,29 @@ table.CodeRay td.code>pre{padding:0}
 <p>This tutorial walks you through the process of consuming a <code>SOAP-based web service</code> with Spring.</p>
 </div>
 <div class="paragraph">
+<p><strong>It elucidates following items</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Making parallel calls with <a href="http://reactivex.io/">RxJava</a> (or <a href="https://docs.spring.io/spring/docs/current/spring-framework-reference/web-reactive.html">WebFlux</a>)</p>
+</li>
+<li>
+<p>Sending large SOAP message payloads using AXIOM( AXis Object Model) <a href="https://docs.spring.io/spring-ws/docs/current/api/org/springframework/ws/soap/axiom/AxiomSoapMessageFactory.html">AxiomSoapMessageFactory</a>.(which improves performance)</p>
+</li>
+<li>
+<p>Marshalling( is the process of transforming the memory representation of an object to a data format suitable for storage or transmission) simplified with <a href="https://www.eclipse.org/eclipselink/documentation/2.4/moxy/toc.htm">Eclipselink Moxy</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="https://www.eclipse.org/eclipselink/documentation/2.4/moxy/img/jaxb_overview.png" alt="Play" width="450 height=150 align=middle" title="Play"></span></p>
+</div>
+<div class="paragraph">
 <p>We will build a SOAP client that fetches city information based on <code>zipCode</code>.</p>
 </div>
 <div class="paragraph">
-<p>Complete WSDL you can found  <a href="http://ws.cdyne.com/psaddress/addresslookup.asmx?wsdl">here</a></p>
+<p>Complete WSDL you can found  <a href="http://ws.cdyne.com/psaddress/addresslookup.asmx?wsdl" class="bare">http://ws.cdyne.com/psaddress/addresslookup.asmx?wsdl</a></p>
 </div>
 <div class="paragraph">
 <p>From the above WSDL we will use following simple service calls</p>
@@ -547,13 +566,13 @@ table.CodeRay td.code>pre{padding:0}
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Message Sender</p>
+<p><strong>Message Sender</strong> - which is responsible for sending the XML message across a transport layer(HTTP/JMS/Email)</p>
 </li>
 <li>
-<p>Message Factory</p>
+<p><strong>Message Factory</strong> - A factory for creating SOAPMessage objects</p>
 </li>
 <li>
-<p>Marshaller</p>
+<p><strong>Marshaller</strong> - is the process of transforming the memory representation of an object to a data format suitable for storage or transmission</p>
 </li>
 </ol>
 </div>
@@ -589,7 +608,9 @@ Use the latter if you need more advanced and easy-to-use functionality (such as 
                 .build();
     }
 
-
+    <span class="comment">/**
+     * Remove duplicate header
+     */</span>
     <span class="directive">public</span> HttpRequestInterceptor httpRequestInterceptor() {
         <span class="keyword">return</span> (request, context) -&gt; request.removeHeaders(HTTP.CONTENT_LEN);
     }
@@ -797,7 +818,7 @@ This means that you have to make sure that any pre-processing (logging etc.) of 
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-12-01 10:58:26 -05:00
+Last updated 2018-12-02 10:05:08 -05:00
 </div>
 </div>
 </body>
