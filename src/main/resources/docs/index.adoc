@@ -6,7 +6,31 @@ This tutorial walks you through the process of consuming a `SOAP-based web servi
 
 * Making parallel calls with http://reactivex.io/[RxJava] (or https://docs.spring.io/spring/docs/current/spring-framework-reference/web-reactive.html[WebFlux])
 * Sending large SOAP message payloads using AXIOM( AXis Object Model) https://docs.spring.io/spring-ws/docs/current/api/org/springframework/ws/soap/axiom/AxiomSoapMessageFactory.html[AxiomSoapMessageFactory].(which improves performance)
-* Marshalling( is the process of transforming the memory representation of an object to a data format suitable for storage or transmission) simplified with https://www.eclipse.org/eclipselink/documentation/2.4/moxy/toc.htm[Eclipselink Moxy]
+* Marshalling( is the process of transforming the memory representation of an object to a data format suitable for storage or transmission)
+
+
+Marshalling (XML Serialization) done with O/X Mappers, different types of mappers out there and choose appropriate one for your need.
+
+. *Castor* XML mapping is an open source XML binding framework.
+    It allows you to transform the data contained in a java object model into/from an XML document.
+    By default, it does not require any further configuration, though a mapping file can be used to have more control over the behavior of Castor.
+    The Spring integration classes reside in the `org.springframework.oxm.castor` package
+
+. *JiBX* The JiBX framework offers a solution similar to that which JDO provides for ORM:
+    a binding definition defines the rules for how your Java objects are converted to or from XML.
+    After preparing the binding and compiling the classes, a JiBX binding compiler enhances the class files,
+    and adds code to handle converting instances of the classes from or to XML.
+    Spring integration classes resides in `org.springframework.oxm.jibx`
+
+    refer https://javadigest.wordpress.com/2012/08/24/spring-web-service-example/[this blog]
+
+. *XStream* is a simple library to serialize objects to XML and back again. It does not require any mapping, and generates clean XML.
+   The Spring integration classes reside in the `org.springframework.oxm.xstream` package
+
+   NOTE: XStream is an XML serialization library, not a data binding library
+
+
+. *Eclipselink Moxy* https://www.eclipse.org/eclipselink/documentation/2.4/moxy/toc.htm[Eclipselink Moxy]
 
 
 image:https://www.eclipse.org/eclipselink/documentation/2.4/moxy/img/jaxb_overview.png[Play, title="Play", width=450 height=150 align=middle]
@@ -26,11 +50,9 @@ From the above WSDL we will use following simple service calls
 
 Spring provides a mechanism to invoke soap based services using `WebServiceTemplate`
 
-We need to customise this component to improve performance, refer
+It has three main components to communicate with soap service, refer
         https://github.com/tvajjala/check-address/blob/master/src/main/java/com/tvajjala/address/config/SoapTemplateConfig.java[SoapTemplateConfig] for full configuration.
 
-
-It requires following components
 
 . *Message Sender* - which is responsible for sending the XML message across a transport layer(HTTP/JMS/Email)
 . *Message Factory* - A factory for creating SOAPMessage objects

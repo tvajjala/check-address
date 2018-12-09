@@ -527,9 +527,41 @@ table.CodeRay td.code>pre{padding:0}
 <p>Sending large SOAP message payloads using AXIOM( AXis Object Model) <a href="https://docs.spring.io/spring-ws/docs/current/api/org/springframework/ws/soap/axiom/AxiomSoapMessageFactory.html">AxiomSoapMessageFactory</a>.(which improves performance)</p>
 </li>
 <li>
-<p>Marshalling( is the process of transforming the memory representation of an object to a data format suitable for storage or transmission) simplified with <a href="https://www.eclipse.org/eclipselink/documentation/2.4/moxy/toc.htm">Eclipselink Moxy</a></p>
+<p>Marshalling( is the process of transforming the memory representation of an object to a data format suitable for storage or transmission)</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>Marshalling (XML Serialization) done with O/X Mappers, different types of mappers out there and choose appropriate one for your need.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Castor</strong> XML mapping is an open source XML binding framework.
+It allows you to transform the data contained in a java object model into/from an XML document.
+By default, it does not require any further configuration, though a mapping file can be used to have more control over the behavior of Castor.
+The Spring integration classes reside in the <code>org.springframework.oxm.castor</code> package</p>
+</li>
+<li>
+<p><strong>JiBX</strong> The JiBX framework offers a solution similar to that which JDO provides for ORM:
+a binding definition defines the rules for how your Java objects are converted to or from XML.
+After preparing the binding and compiling the classes, a JiBX binding compiler enhances the class files,
+and adds code to handle converting instances of the classes from or to XML.
+Spring integration classes resides in <code>org.springframework.oxm.jibx</code></p>
+</li>
+<li>
+<p><strong>XStream</strong> is a simple library to serialize objects to XML and back again. It does not require any mapping, and generates clean XML.
+The Spring integration classes reside in the <code>org.springframework.oxm.xstream</code> package</p>
+<div class="literalblock">
+<div class="content">
+<pre>NOTE: XStream is an XML serialization library, not a data binding library</pre>
+</div>
+</div>
+</li>
+<li>
+<p><strong>Eclipselink Moxy</strong> <a href="https://www.eclipse.org/eclipselink/documentation/2.4/moxy/toc.htm">Eclipselink Moxy</a></p>
+</li>
+</ol>
 </div>
 <div class="paragraph">
 <p><span class="image"><img src="https://www.eclipse.org/eclipselink/documentation/2.4/moxy/img/jaxb_overview.png" alt="Play" width="450 height=150 align=middle" title="Play"></span></p>
@@ -557,11 +589,8 @@ table.CodeRay td.code>pre{padding:0}
 <p>Spring provides a mechanism to invoke soap based services using <code>WebServiceTemplate</code></p>
 </div>
 <div class="paragraph">
-<p>We need to customise this component to improve performance, refer
+<p>It has three main components to communicate with soap service, refer
         <a href="https://github.com/tvajjala/check-address/blob/master/src/main/java/com/tvajjala/address/config/SoapTemplateConfig.java">SoapTemplateConfig</a> for full configuration.</p>
-</div>
-<div class="paragraph">
-<p>It requires following components</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -818,7 +847,7 @@ This means that you have to make sure that any pre-processing (logging etc.) of 
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-12-02 10:05:08 -05:00
+Last updated 2018-12-08 13:18:10 -05:00
 </div>
 </div>
 </body>
