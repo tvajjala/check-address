@@ -1,18 +1,20 @@
-package com.tvajjala.address;
+package com.tvajjala.address.controller.tests;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
 
-@Ignore
+
 @RunWith(SpringRunner.class)
-@SpringBootTest
-public class ApplicationTests {
+public class ControllerLayerTest {
+
 
     @Test
-    public void contextLoads() {
+    public void contextLoads() throws Exception{
+
+        Thread.sleep(5000);
     }
 
 }

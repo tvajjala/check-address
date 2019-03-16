@@ -1,28 +1,34 @@
+
 pipeline {
     agent any
 
     stages {
+
+        stage('Checkout'){
+            checkout scm
+        }
+
+
         stage('Build') {
             steps {
                 echo 'Building..'
             }
         }
-        stage('Test') {
+
+        stage('componentTest') {
             steps {
-                echo 'Testing..'
+              sh  './gradlew componentTest'
+                echo 'Running componentTest ..'
             }
         }
 
-         stage('E2E') {
-                    steps {
-                        echo 'E2E Testing..'
-                    }
-         }
 
-        stage('Deploy') {
+        stage('layerTest') {
             steps {
-                echo 'Deploying....'
+              sh  './gradlew layerTest'
+                echo 'Running layerTest ..'
             }
         }
+
     }
 }

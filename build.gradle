@@ -9,7 +9,6 @@ buildscript {
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-        classpath("org.asciidoctor:asciidoctor-gradle-plugin:1.5.3")
     }
 }
 
@@ -17,7 +16,7 @@ apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
-apply plugin: 'org.asciidoctor.convert'
+apply plugin: 'com.tvajjala.test-strategy'
 
 group = 'com.tvajjala'
 version = '0.0.1-SNAPSHOT'
@@ -37,26 +36,13 @@ repositories {
  *
  * dependencies do not leak into the compile classpath of consumers anymore, so you will never accidentally depend on a transitive dependency
  * faster compilation thanks to reduced classpath size less recompilations when implementation dependencies change: consumers would not need to be recompiled
- * cleaner publishing: when used in conjunction with the new maven-publish plugin, Java libraries produce POM files that distinguish exactly between what is required to compile against the library and what is required to use the library at runtime (in other words, don't mix what is needed to compile the library itself and what is needed to compile against the library).
+ * cleaner publishing: when used in conjunction with the new maven-publish com.tvajjala.plugin, Java libraries produce POM files that distinguish exactly between what is required to compile against the library and what is required to use the library at runtime (in other words, don't mix what is needed to compile the library itself and what is needed to compile against the library).
 
  * The compile configuration still exists, but should not be used as it will not offer the guarantees that the api and implementation configurations provide
  */
 
-build {
-    dependsOn 'asciidoctor'
-}
 
-asciidoctor {
 
-    sourceDir = file('src/main/resources/docs')
-
-    outputDir = file('src/main/resources')
-
-    attributes 'source-highlighter': 'coderay',
-            idprefix: '',
-            'imagesdir': '../images',// this allows us to preview images
-            idseparator: '-'
-}
 
 dependencies {
 
@@ -75,7 +61,15 @@ dependencies {
     implementation('org.eclipse.persistence:org.eclipse.persistence.moxy:2.7.3')
     implementation('org.springframework.boot:spring-boot-starter-web')
     implementation('org.springframework.boot:spring-boot-starter-web-services')
-    testImplementation('org.springframework.boot:spring-boot-starter-test')
 
+    //dependencies for componentTest
+    componentTestImplementation('org.springframework.boot:spring-boot-starter-test')
+
+    // dependencies for layerTests example restAssured
+    layerTestImplementation('org.springframework.boot:spring-boot-starter-test')
+
+    functionalTestImplementation('org.springframework.boot:spring-boot-starter-test')
+
+    contractTestImplementation('org.springframework.boot:spring-boot-starter-test')
 
 }
