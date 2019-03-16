@@ -20,14 +20,20 @@ pipeline {
         stage('Code Quality'){
             parallel{
                 stage('Sonar'){
-                    echo 'Running Sonar report'
+                    steps{
+                        echo 'Running Sonar report'
+                    }
                 }
                 stage('Klockwork'){
-                    echo 'Running Klockwork report'
+                    steps{
+                        echo 'Running Klockwork report'
+                    }
                 }
 
                 stage('Veracode'){
-                    echo 'Running Veracode report'
+                    steps{
+                         echo 'Running Veracode report'
+                    }
                 }
 
             }
@@ -65,15 +71,20 @@ pipeline {
             parallel{
 
                 stage('DEV1'){
-                    echo 'Deploying to dev1'
+                    steps{
+                         echo 'Deploying to dev1'
+                    }
                 }
                 stage('DEV2'){
-                    echo 'Deploying to dev2'
+                    steps{
+                         echo 'Deploying to dev2'
+                    }
                 }
 
                 stage('DEV3'){
-                    echo 'Deploying to dev3'
-                }
+                    steps{
+                         echo 'Deploying to dev3'
+                    }
             }
         }
 
