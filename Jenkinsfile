@@ -56,46 +56,57 @@ pipeline {
 
 
 
-        stage('Docker image') {
+        stage('prepare docker image') {
             steps {
-               echo 'Dockerize ...'
+               echo 'prepare docker image ...'
             }
         }
 
 
         stage('Deploy') {
             parallel {
-                stage('DEV1') {
+                stage('deploying to DEV1 server') {
                     steps {
-                         echo 'Deploying to dev1'
+                         echo 'deploying to DEV1 server'
                     }
                 }
-                stage('DEV2') {
+                stage('deploying to DEV2 server') {
                     steps {
-                         echo 'Deploying to dev2'
+                         echo 'deploying to DEV2 server'
                     }
                 }
-                stage('DEV3') {
+                stage('deploying to DEV3 server') {
                     steps {
-                         echo 'Deploying to dev3'
+                         echo 'deploying to DEV3 server'
                     }
                 }
             }
         }
 
 
-        stage('ContractTest') {
+        stage('contractTest') {
             steps {
                  sh  './gradlew contractTest'
                  echo 'Running contractTest ..'
             }
         }
 
+        stage('Generate contracts') {
+            steps {
+                echo 'Publishing contracts ..'
+            }
+        }
 
         stage('functionalTest') {
             steps {
                  sh  './gradlew functionalTest'
                  echo 'Running functionalTest ..'
+            }
+        }
+
+        stage('Check Health') {
+            steps {
+                echo 'Checking health..'
             }
         }
     }
