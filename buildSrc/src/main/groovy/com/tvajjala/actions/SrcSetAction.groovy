@@ -40,10 +40,12 @@ class SrcSetAction implements Action<SourceSet> {
 
         def javaSrcSet = sourceSet.java(new SrcDirectoryAction(testStrategy.taskName))
         /** Setting classpath to avoid compilation errors */
-        javaSrcSet.setCompileClasspath(javaSrcSet.compileClasspath + container.getByName("main").output.classesDirs)
+        javaSrcSet.setCompileClasspath(javaSrcSet.compileClasspath + container.getByName("main").output.classesDirs+
+                container.getByName("main").compileClasspath)
 
         /** Setting runtime classpath to execute tests */
-        javaSrcSet.setRuntimeClasspath(javaSrcSet.runtimeClasspath + container.getByName("main").output.classesDirs)
+        javaSrcSet.setRuntimeClasspath(javaSrcSet.runtimeClasspath + container.getByName("main").output.classesDirs+
+                container.getByName("main").runtimeClasspath)
 
         /** Defining resource folder for yml or properties  */
         sourceSet.resources(new ResourceDirectoryAction(testStrategy.taskName))
