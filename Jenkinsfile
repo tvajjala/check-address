@@ -17,22 +17,26 @@ pipeline {
             }
         }
 
+        stage('Tests') {
 
-        stage('componentTest') {
-            steps {
-              sh  './gradlew componentTest'
-              echo 'Running componentTest ..'
+            parallel {
+
+                stage('componentTest') {
+                    steps {
+                        sh  './gradlew componentTest'
+                        echo 'Running componentTest ..'
+                    }
+                }
+
+
+                stage('layerTest') {
+                    steps {
+                        sh  './gradlew layerTest'
+                        echo 'Running layerTest ..'
+                    }
+                }
             }
         }
-
-
-        stage('layerTest') {
-            steps {
-              sh  './gradlew layerTest'
-              echo 'Running layerTest ..'
-            }
-        }
-
 
 
         stage('prepare docker image') {
@@ -40,6 +44,23 @@ pipeline {
                echo 'prepare docker image ...'
             }
         }
+
+
+        stage('contractTest') {
+            steps {
+                sh  './gradlew contractTest'
+                echo 'Running contractTest ..'
+            }
+        }
+
+
+        stage('integrationTest') {
+            steps {
+                sh  './gradlew functionalTest'
+                echo 'Running functionalTest ..'
+            }
+        }
+
 
     }
 }
