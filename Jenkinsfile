@@ -39,11 +39,6 @@ pipeline {
         }
 
 
-        stage('prepare docker image') {
-            steps {
-               echo 'prepare docker image ...'
-            }
-        }
 
 
         stage('contractTest') {
@@ -61,6 +56,11 @@ pipeline {
             }
         }
 
+        stage('dockerize') {
+            steps {
+                echo 'prepare docker image ...'
+            }
+        }
 
     }
 }
