@@ -15,6 +15,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Configuration
 public class SwaggerConfig implements WebMvcConfigurer {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(SwaggerConfig.class);
 
 

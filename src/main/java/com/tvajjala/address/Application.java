@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * This simple soap client will demonstrates the usage of parallel programming with
@@ -25,7 +24,8 @@ public class Application implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) {
+    public void run(String... args)
+    {
         LOGGER.info("Application started...");
     }
 }

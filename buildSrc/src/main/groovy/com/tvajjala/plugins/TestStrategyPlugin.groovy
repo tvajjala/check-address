@@ -8,10 +8,7 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
 import static com.tvajjala.constants.Constants.SOURCE_SET
-import static com.tvajjala.constants.TestStrategy.COMPONENT
-import static com.tvajjala.constants.TestStrategy.CONTRACT
-import static com.tvajjala.constants.TestStrategy.FUNCTIONAL
-import static com.tvajjala.constants.TestStrategy.LAYER
+import static com.tvajjala.constants.TestStrategy.*
 
 /**
  * @author ThirupathiReddy Vajjala
@@ -32,13 +29,13 @@ class TestStrategyPlugin implements Plugin<Project> {
 
         SourceSetContainer container = (SourceSetContainer) project.getProperties().get(SOURCE_SET)
 
-        container.create(COMPONENT.sourceSetName, new SrcSetAction(COMPONENT, project))
+        container.create(UNIT.sourceSetName, new SrcSetAction(UNIT, project))
 
         container.create(LAYER.sourceSetName, new SrcSetAction(LAYER, project))
 
         container.create(CONTRACT.sourceSetName, new SrcSetAction(CONTRACT, project))
 
-        container.create(FUNCTIONAL.sourceSetName, new SrcSetAction(FUNCTIONAL, project))
+        container.create(INTEGRATION.sourceSetName, new SrcSetAction(INTEGRATION, project))
 
 
     }

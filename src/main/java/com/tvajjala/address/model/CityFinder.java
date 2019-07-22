@@ -18,6 +18,8 @@ public class CityFinder {
 
 
     LocalDate localDate = LocalDate.now();
+    private CityStateRes cityStateRes;
+    private AlternateCities alternateCities;
 
     public LocalDate getLocalDate() {
         return localDate;
@@ -47,11 +49,6 @@ public class CityFinder {
         this.zonedDateTime = zonedDateTime;
     }
 
-    private CityStateRes cityStateRes;
-
-    private AlternateCities alternateCities;
-
-
     public CityStateRes getCityStateRes() {
         return cityStateRes;
     }
@@ -68,4 +65,15 @@ public class CityFinder {
         this.alternateCities = alternateCities;
     }
 
+
+    @Override
+    public String toString() {
+        return "CityFinder{" +
+                "instant=" + instant +
+                ", zonedDateTime=" + zonedDateTime +
+                ", localDate=" + localDate +
+                ", cityStateRes=" + cityStateRes +
+                ", alternateCities=" + alternateCities +
+                '}';
+    }
 }

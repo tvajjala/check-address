@@ -3,8 +3,8 @@ logging:
     # Enabling trace for app specific logging.
     org.springframework: INFO
     org.springframework.ws.soap: TRACE
-    org.springframework.web: WARN
-    org.springframework.boot: WARN
+    org.springframework.web: INFO
+    org.springframework.boot: INFO
     org.eclipse: TRACE
     org.springframework.ws.client.MessageTracing.sent: TRACE
     org.springframework.ws.client.MessageTracing.received: DEBUG
@@ -20,4 +20,5 @@ spring:
       enabled: always
 server:
   port: 8084
-
+  tomcat:
+    max-threads: 10

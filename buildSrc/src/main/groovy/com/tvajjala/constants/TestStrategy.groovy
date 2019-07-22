@@ -1,18 +1,20 @@
 package com.tvajjala.constants
 
 /**
- * Define your testing strategies
+ * Define your testing strategies, and make sure update the same in gradle.properties
  *
- * @author ThirupathiReddy
+ * for unitTest you need to add unitTestImplementation
+ *
+ * @author ThirupathiReddy Vajjala
  *
  */
 enum TestStrategy {
 
-    COMPONENT{
+    UNIT{
 
         @Override
         def getDescription() {
-            return "Tests individual components"
+            return "TestSuit for unitTests"
         }
 
         @Override
@@ -22,13 +24,13 @@ enum TestStrategy {
 
         @Override
         def getTaskName() {
-            return "componentTest"// directoryName both same
+            return "unitTest"
         }
 
     }, LAYER{
         @Override
         def getDescription() {
-            return "Tests controller and client layers by mocking underlying services"
+            return "TestSuit for clientLayerTests"
         }
 
         @Override
@@ -44,7 +46,7 @@ enum TestStrategy {
     }, CONTRACT{
         @Override
         def getDescription() {
-            return "Tests contract between two services"
+            return "TestSuit for ContractTest between two micro services"
         }
 
         @Override
@@ -57,11 +59,11 @@ enum TestStrategy {
             return "contractTest"
         }
 
-    }, FUNCTIONAL{
+    }, INTEGRATION{
 
         @Override
         def getDescription() {
-            return "Tests complete application functionality"
+            return "TestSuit for IntegrationTests"
         }
 
         @Override
@@ -71,7 +73,7 @@ enum TestStrategy {
 
         @Override
         def getTaskName() {
-            return "functionalTest"
+            return "integrationTest"
         }
 
     }

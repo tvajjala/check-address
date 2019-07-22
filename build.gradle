@@ -60,15 +60,20 @@ dependencies {
     // https://mvnrepository.com/artifact/org.eclipse.persistence/org.eclipse.persistence.moxy
     implementation('org.eclipse.persistence:org.eclipse.persistence.moxy:2.7.3')
     implementation('org.springframework.boot:spring-boot-starter-web')
+   // implementation('org.springframework.boot:spring-boot-starter-security')
     implementation('org.springframework.boot:spring-boot-starter-web-services')
 
+    // https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk16
+    compile group: 'org.bouncycastle', name: 'bcprov-jdk16', version: '1.45'
+
+
     //dependencies for componentTest
-    componentTestImplementation('org.springframework.boot:spring-boot-starter-test')
+    unitTestImplementation('org.springframework.boot:spring-boot-starter-test')
 
     // dependencies for layerTests example restAssured
     layerTestImplementation('org.springframework.boot:spring-boot-starter-test')
 
-    functionalTestImplementation('org.springframework.boot:spring-boot-starter-test')
+    integrationTestImplementation('org.springframework.boot:spring-boot-starter-test')
 
     contractTestImplementation('org.springframework.boot:spring-boot-starter-test')
 
