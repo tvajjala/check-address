@@ -34,9 +34,8 @@ There are two implementations of the `WebServiceMessageSender` interface for sen
 Use the latter if you need more advanced and easy-to-use functionality (such as authentication, HTTP connection pooling, and so forth).
 
 
-[source,java]
-.messageSenderBean.java
-----
+````java
+
 
 
     /**
@@ -80,7 +79,7 @@ Use the latter if you need more advanced and easy-to-use functionality (such as 
         httpComponentsMessageSender.setHttpClient(httpClient());
         return httpComponentsMessageSender;
     }
-----
+````
 
 
 
