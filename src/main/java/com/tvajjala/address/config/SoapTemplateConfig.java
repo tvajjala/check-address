@@ -14,6 +14,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.ws.client.core.WebServiceTemplate;
+import org.springframework.ws.client.support.interceptor.ClientInterceptor;
 import org.springframework.ws.soap.axiom.AxiomSoapMessageFactory;
 import org.springframework.ws.soap.client.core.SoapFaultMessageResolver;
 import org.springframework.ws.soap.saaj.SaajSoapMessageFactory;
@@ -74,6 +75,7 @@ public class SoapTemplateConfig {
         webServiceTemplate.setMessageSender(httpComponentsMessageSender());
         webServiceTemplate.setMarshaller(jaxb2Marshaller(bindingPath));
         webServiceTemplate.setUnmarshaller(jaxb2Marshaller(bindingPath));
+        webServiceTemplate.setInterceptors(new ClientInterceptor[]{new CustomClientInterceptor()});
         //webServiceTemplate.afterPropertiesSet();
         return webServiceTemplate;
 

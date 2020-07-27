@@ -9,9 +9,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import rx.Completable;
+import rx.Observable;
 import rx.Single;
+import rx.functions.Action0;
+import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
+import java.util.concurrent.Callable;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
@@ -51,11 +56,34 @@ public class CityFinderService {
                     return cityFinder;
                 }
         ).subscribeOn(Schedulers.io()).toBlocking().value();
-
+        processAsync();
         LOGGER.info("Returning response {}", cityFinderResponse);
         return cityFinderResponse;
     }
 
+
+
+    public void processAsync(){
+
+
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                try {
+                    LOGGER.info("Start");
+                    Thread.sleep(5000);
+                    LOGGER.info("End");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                LOGGER.info("New thread");
+
+            }
+        }).start();
+
+    }
 
 
     public String findName() throws Exception{
