@@ -18,7 +18,7 @@ public class CityStateReqTest {
         YamlPropertiesFactoryBean yaml = new YamlPropertiesFactoryBean();
         yaml.setResources(new ClassPathResource("application.yml"));
 
-        Assert.assertEquals("check-address-test", yaml.getObject().getProperty("application.name"));
+        Assert.assertEquals("check-address", yaml.getObject().getProperty("application.name"));
 
         Thread.sleep(5000);
     }
