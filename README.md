@@ -34,9 +34,8 @@ There are two implementations of the `WebServiceMessageSender` interface for sen
 Use the latter if you need more advanced and easy-to-use functionality (such as authentication, HTTP connection pooling, and so forth).
 
 
-[source,java]
-.messageSenderBean.java
-----
+````java
+
 
 
     /**
@@ -80,7 +79,7 @@ Use the latter if you need more advanced and easy-to-use functionality (such as 
         httpComponentsMessageSender.setHttpClient(httpClient());
         return httpComponentsMessageSender;
     }
-----
+````
 
 
 
@@ -109,9 +108,7 @@ This means that you have to make sure that any pre-processing (logging etc.) of 
 
 
 
-[source,java]
-.axiomSoapMessageFactory Bean
-----
+````java
 
     /**
      * In addition to a message sender, the WebServiceTemplate requires a Web service message factory. There are two
@@ -141,7 +138,7 @@ This means that you have to make sure that any pre-processing (logging etc.) of 
 
         return axiomSoapMessageFactory;
     }
-----
+````
 
 
 === Sending and receiving POJOs - marshalling and un-marshalling
@@ -155,9 +152,7 @@ To externalize the conversion logic we use `Eclipselink Moxy` Framework.
 
 Refer https://wiki.eclipse.org/EclipseLink/Examples document for more information.
 
-[source,java]
-.marshaller.java
-----
+````java
 /**
      * Handles conversion of JavaObjects to XML vice versa. (uses MOXY to externalize this conversion).
      * <p>
@@ -183,7 +178,7 @@ Refer https://wiki.eclipse.org/EclipseLink/Examples document for more informatio
         jaxb2Marshaller.setContextPath("jaxb");//jaxb.context.path
         return jaxb2Marshaller;
     }
-----
+````
 
 Client layer uses RxJava to make asynchronous calls and aggregates the result.
 
